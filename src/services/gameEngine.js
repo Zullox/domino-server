@@ -1,16 +1,16 @@
 // ============================================================================
-// MOTOR DEL JUEGO - DOMINÓ CUBANO
+// MOTOR DEL JUEGO - DOMINÓ CUBANO (DOBLE 9)
 // ============================================================================
 
 /**
- * Crear todas las fichas del dominó (28 fichas)
+ * Crear todas las fichas del dominó cubano (55 fichas - doble 9)
  */
 export const createTiles = () => {
   const tiles = [];
   let id = 0;
   
-  for (let i = 0; i <= 6; i++) {
-    for (let j = i; j <= 6; j++) {
+  for (let i = 0; i <= 9; i++) {
+    for (let j = i; j <= 9; j++) {
       tiles.push({
         id: id++,
         top: i,
@@ -21,7 +21,7 @@ export const createTiles = () => {
     }
   }
   
-  return tiles;
+  return tiles; // 55 fichas
 };
 
 /**
@@ -37,19 +37,21 @@ export const shuffle = (array) => {
 };
 
 /**
- * Repartir fichas a los 4 jugadores
+ * Repartir fichas a los 4 jugadores (10 fichas cada uno)
+ * Las 15 fichas restantes quedan fuera del juego
  */
 export const dealTiles = () => {
   const tiles = shuffle(createTiles());
   
   return {
     hands: [
-      tiles.slice(0, 7),   // Jugador 0 (Equipo 0)
-      tiles.slice(7, 14),  // Jugador 1 (Equipo 1)
-      tiles.slice(14, 21), // Jugador 2 (Equipo 0)
-      tiles.slice(21, 28)  // Jugador 3 (Equipo 1)
+      tiles.slice(0, 10),   // Jugador 0 (Equipo 0) - 10 fichas
+      tiles.slice(10, 20),  // Jugador 1 (Equipo 1) - 10 fichas
+      tiles.slice(20, 30),  // Jugador 2 (Equipo 0) - 10 fichas
+      tiles.slice(30, 40)   // Jugador 3 (Equipo 1) - 10 fichas
     ],
-    tiles
+    tiles: tiles.slice(0, 40), // Solo las 40 fichas en juego
+    outOfGame: tiles.slice(40) // 15 fichas fuera del juego
   };
 };
 
@@ -57,8 +59,8 @@ export const dealTiles = () => {
  * Encontrar quién tiene el doble más alto para salir
  */
 export const findStartingPlayer = (hands) => {
-  // Buscar doble 6, luego 5, 4, 3, 2, 1, 0
-  for (let double = 6; double >= 0; double--) {
+  // Buscar doble 9, luego 8, 7, 6, 5, 4, 3, 2, 1, 0
+  for (let double = 9; double >= 0; double--) {
     for (let playerIndex = 0; playerIndex < 4; playerIndex++) {
       const hasTile = hands[playerIndex].find(t => t.top === double && t.bottom === double);
       if (hasTile) {
