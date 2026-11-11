@@ -1,0 +1,41 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh",
+            "timeout": 900
+          }
+        ]
+      }
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    },
+    "anthropic-agent-skills": {
+      "source": { "source": "github", "repo": "anthropics/skills" }
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    },
+    "ecc": {
+      "source": { "source": "github", "repo": "affaan-m/everything-claude-code" }
+    },
+    "mempalace": {
+      "source": { "source": "github", "repo": "MemPalace/mempalace" }
+    }
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "document-skills@anthropic-agent-skills": true,
+    "example-skills@anthropic-agent-skills": true,
+    "ponytail@ponytail": true,
+    "ecc@ecc": true,
+    "mempalace@mempalace": true
+  }
+}
